@@ -65,6 +65,8 @@ export class ImagesController {
   @ApiParam({ name: 'imgpath', type: 'string' })
   async serveImage(@Param('imgpath') image: string, @Res() res) {
     const filePath = join(process.cwd(), 'uploads', image);
+    // get the file extension
+    const fileExt = image.split('.').pop();
 
     if (!fileExists(filePath)) {
       res.status(404).send('Imagem não encontrada');
@@ -72,7 +74,7 @@ export class ImagesController {
     }
 
     const fileStream = createReadStream(filePath);
-    res.setHeader('Content-Type', 'image/png');
+    res.setHeader('Content-Type', `image/${fileExt}`);
     fileStream.pipe(res);
   }
 }
