@@ -1,3 +1,5 @@
+import { existsSync } from 'fs';
+
 export const editFileName = (req: any, file: any, callback: any) => {
   const name = file.originalname.split('.')[0];
   const fileExtName = file.originalname.split('.')[1];
@@ -17,3 +19,10 @@ export const imageFileFilter = (req: any, file: any, callback: any) => {
   }
   callback(null, true);
 };
+
+function fileExists(filePath: string): boolean {
+  // Use a função existsSync do módulo fs para verificar se o arquivo existe
+  return existsSync(filePath);
+}
+
+export default fileExists;
