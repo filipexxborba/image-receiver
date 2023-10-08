@@ -1,27 +1,16 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { LeadsService } from './leads.service';
+import { CreateLeadDTO } from './dto/create-lead.dto';
 
 @ApiTags('Leads')
 @Controller('leads')
 export class LeadsController {
   constructor(private readonly leadsService: LeadsService) {}
   @Post('create')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        name: {
-          type: 'string',
-        },
-        email: {
-          type: 'string',
-        },
-      },
-    },
-  })
-  async createLead(@Body() body: { name: string; email: string }) {
-    return this.leadsService.create({ name: body.name, email: body.email });
+  async createLead(@Body() createLeadDto: CreateLeadDTO) {
+    console.log('Novo lead: ', createLeadDto);
+    return this.leadsService.create(createLeadDto);
   }
 
   //   Get all

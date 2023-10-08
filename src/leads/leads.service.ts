@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { Lead } from './lead.interface';
+import { CreateLeadDTO } from './dto/create-lead.dto';
 
 @Injectable()
 export class LeadsService {
@@ -9,8 +10,7 @@ export class LeadsService {
     private leadModel: Model<Lead>,
   ) {}
 
-  async create(createLeadDto: { name: string; email: string }): Promise<Lead> {
-    console.log('Novo lead: ', createLeadDto);
+  async create(createLeadDto: CreateLeadDTO): Promise<Lead> {
     const created = new this.leadModel(createLeadDto).save();
     return created;
   }
