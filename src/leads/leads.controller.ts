@@ -21,7 +21,7 @@ export class LeadsController {
     },
   })
   async createLead(@Body() body: { name: string; email: string }) {
-    return this.leadsService.create(body);
+    return this.leadsService.create({ name: body.name, email: body.email });
   }
 
   //   Get all

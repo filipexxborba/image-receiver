@@ -10,10 +10,12 @@ export class LeadsService {
   ) {}
 
   async create(createLeadDto: { name: string; email: string }): Promise<Lead> {
-    const createdLead = new this.leadModel(createLeadDto);
-    return createdLead.save();
+    console.log('Novo lead: ', createLeadDto);
+    const created = new this.leadModel(createLeadDto).save();
+    return created;
   }
   async findAll(): Promise<Lead[]> {
-    return this.leadModel.find().exec();
+    const leads = await this.leadModel.find({});
+    return leads;
   }
 }
